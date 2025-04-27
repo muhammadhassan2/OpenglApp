@@ -10,6 +10,7 @@
 		3BDC3A482DBC353A000D202A /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDC3A472DBC353A000D202A /* OpenGL.framework */; };
 		3BDC3A4A2DBC361D000D202A /* libGLEW.2.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDC3A492DBC361D000D202A /* libGLEW.2.2.0.dylib */; };
 		3BDC3A4C2DBC37BC000D202A /* libglfw.3.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDC3A4B2DBC37BC000D202A /* libglfw.3.4.dylib */; };
+		3BDC3A762DBDA3D9000D202A /* libglm.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDC3A752DBDA3D9000D202A /* libglm.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +30,7 @@
 		3BDC3A472DBC353A000D202A /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		3BDC3A492DBC361D000D202A /* libGLEW.2.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.2.0.dylib; path = ../../../opt/homebrew/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.0.dylib; sourceTree = "<group>"; };
 		3BDC3A4B2DBC37BC000D202A /* libglfw.3.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.4.dylib; path = ../../../opt/homebrew/Cellar/glfw/3.4/lib/libglfw.3.4.dylib; sourceTree = "<group>"; };
+		3BDC3A752DBDA3D9000D202A /* libglm.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglm.dylib; path = ../../../opt/homebrew/Cellar/glm/1.0.1/lib/libglm.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -44,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BDC3A762DBDA3D9000D202A /* libglm.dylib in Frameworks */,
 				3BDC3A4C2DBC37BC000D202A /* libglfw.3.4.dylib in Frameworks */,
 				3BDC3A4A2DBC361D000D202A /* libGLEW.2.2.0.dylib in Frameworks */,
 				3BDC3A482DBC353A000D202A /* OpenGL.framework in Frameworks */,
@@ -73,6 +76,7 @@
 		3BDC3A462DBC353A000D202A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3BDC3A752DBDA3D9000D202A /* libglm.dylib */,
 				3BDC3A4B2DBC37BC000D202A /* libglfw.3.4.dylib */,
 				3BDC3A492DBC361D000D202A /* libGLEW.2.2.0.dylib */,
 				3BDC3A472DBC353A000D202A /* OpenGL.framework */,
@@ -276,6 +280,7 @@
 					"$(inherited)",
 					/opt/homebrew/Cellar/glew/2.2.0_1/lib,
 					/opt/homebrew/Cellar/glfw/3.4/lib,
+					/opt/homebrew/Cellar/glm/1.0.1/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -293,6 +298,7 @@
 					"$(inherited)",
 					/opt/homebrew/Cellar/glew/2.2.0_1/lib,
 					/opt/homebrew/Cellar/glfw/3.4/lib,
+					/opt/homebrew/Cellar/glm/1.0.1/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

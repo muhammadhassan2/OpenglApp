@@ -8,7 +8,6 @@
 #include "Window.hpp"
 #include <iostream>
 Window::Window(const char *Title , GLuint width , GLuint height) :Title{Title} , width{width},height{height}{
-    std::cout<<"CONSTRUCTOR/n";
     setWindowConfiguration();
     InitiateWindow();
 }
@@ -29,7 +28,9 @@ State Window::InitiateWindow(){
 }
 
 void Window::setWindowConfiguration(){
-    glfwInit();
+    if (!glfwInit()) {
+          return ;
+      }
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);

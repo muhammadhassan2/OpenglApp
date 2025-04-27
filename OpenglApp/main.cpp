@@ -20,7 +20,7 @@
 #include "Renderer/EBO.hpp"
 #include "Renderer/VBO.hpp"
 #include "Renderer/Texture.hpp"
-
+#include "Renderer/Camera.hpp"
 // this is for glm
 #include <./glm/glm.hpp>
 #include <./glm/gtc/matrix_transform.hpp>
@@ -42,6 +42,27 @@ GLuint indecies [] = {
   0 ,2 ,1,
   0,3,2
 };
+
+GLfloat vertecies2[] =
+{ //     COORDINATES     /        COLORS      /   TexCoord  //
+    -0.5f, 0.0f,  0.5f,       0.0f, 0.0f,
+    -0.5f, 0.0f, -0.5f,       5.0f, 0.0f,
+     0.5f, 0.0f, -0.5f,        0.0f, 0.0f,
+     0.5f, 0.0f,  0.5f,       5.0f, 0.0f,
+     0.0f, 0.8f,  0.0f,        2.5f, 5.0f
+};
+
+// Indices for vertices order
+GLuint indecies2[] =
+{
+    0, 1, 2,
+    0, 2, 3,
+    0, 1, 4,
+    1, 2, 4,
+    2, 3, 4,
+    3, 0, 4
+};
+
 
 struct textureInfo{
     const char* path;
@@ -71,9 +92,9 @@ int main(int argc, const char * argv[]) {
     
     std::shared_ptr<VAO> Vao = std::make_shared<VAO>();
     Vao->bind();
-    std::shared_ptr<VBO> Vbo = std::make_shared<VBO>(vertecies , sizeof(vertecies));
+    std::shared_ptr<VBO> Vbo = std::make_shared<VBO>(vertecies2 , sizeof(vertecies2));
     Vbo->bind();
-    std::shared_ptr<EBO> Ebo = std::make_shared<EBO>(indecies,sizeof(indecies));
+    std::shared_ptr<EBO> Ebo = std::make_shared<EBO>(indecies2,sizeof(indecies2));
     Ebo->bind();
     Vao->activate(0, 3, GL_FLOAT, GL_FALSE, 5 *sizeof(float), (void*)0);
     Vao->activate(1, 2, GL_FLOAT, GL_FALSE, 5 *sizeof(float), (void*)(3*sizeof(float)));
@@ -95,25 +116,60 @@ int main(int argc, const char * argv[]) {
     
     //===================================================================================================================
     
-    //======== Handel Transformations ===============================
+    //======== Handel Transformations MVP matrix ===============================
+    float rotation = glfwGetTime();
     
-   // glm::mat4 
+
+    
+    glEnable(GL_DEPTH_TEST);
+    
+
+    
+    
+    //++++++++++++++++ CAMERA
+    glm::vec3 camera_pos = glm::vec3(0.0f , 0.0f,2.0f);
+    std::shared_ptr<Camera> camera = std::make_shared<Camera>(int(width) , int(height) ,camera_pos);
     
     
     //===============================================================
     
     while(!mWindow->shouldClose()){
         float glfwtime = glfwGetTime();
-
+        
+        glm::mat4 model = glm::mat4(1.0f);
+        glm::mat4 view = glm::mat4(1.0f);
+        glm::mat4 proj = glm::mat4(1.0f);
+        
+        model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f,1.0f,0.0f));
+        
+        view = glm::translate(view, glm::vec3(0.0f,-.5f ,-2.0f));
+        
+        proj = glm::perspective(glm::radians(45.f), float(width/height), .1f, 100.0f);   
+        
+        int model_location = glGetUniformLocation(shader->getProgramID(),"model");
+        int view_location = glGetUniformLocation(shader->getProgramID(),"view");
+        int proj_location = glGetUniformLocation(shader->getProgramID(),"proj");
+        
+        glUniformMatrix4fv(model_location,1,GL_FALSE ,glm::value_ptr(model));
+        glUniformMatrix4fv(view_location,1,GL_FALSE ,glm::value_ptr(view));
+        glUniformMatrix4fv(proj_location,1,GL_FALSE ,glm::value_ptr(proj));
+        
+        
+        
+        camera->inputs(mWindow);
+        camera->Matrix(45.0f, .1f, 100.f, shader, "camera");
+        
+        
+        
         glClearColor(0.3, .43, .2, 1.0);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         shader->activate();
         texture->bind();
         texture2->bind();
         Vao->bind();
         shader->activate();
        
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, sizeof(indecies2) / sizeof(int), GL_UNSIGNED_INT, 0);
       //glDrawArrays(GL_TRIANGLES, 0, 3);
         mWindow->swapBuffers();
         glfwPollEvents();

@@ -22,6 +22,6 @@ void main(){
 else{
   ans = texture(texture1,tc);
 }
-    FragColor = ans;
+    FragColor = texture(texture1,tc);
 }
 )";

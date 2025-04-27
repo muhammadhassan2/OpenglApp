@@ -5,8 +5,10 @@
 //  Created by Mohamed Hassan on 26/04/2025.
 //
 
-#pragma once
 
+
+#ifndef WINDOW_HPP
+#define WINDOW_HPP
 #define GLFW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -33,3 +35,5 @@ private:
     GLuint height;
     GLFWwindow *mWindow ;
 };
+
+#endif
