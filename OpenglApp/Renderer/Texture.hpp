@@ -18,6 +18,7 @@ public:
     void unbind();
     void Delete();
     void texUnit(std::shared_ptr<Shader> &shader, const char* uniform, GLuint unit);
+    GLuint get_id();
 private:
     GLuint texId;
     int width , height , channels;

@@ -10,3 +10,4 @@
 #include "defaultFragmentShader.h"
 #include "defaultVertexShader.h";
 #include "splitEffectShader.h"
+#include "EffectShader.h"

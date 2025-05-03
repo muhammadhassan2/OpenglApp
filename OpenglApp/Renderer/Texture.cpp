@@ -57,3 +57,6 @@ void Texture::Delete()
 {
     glDeleteTextures(1, &texId);
 }
+GLuint Texture::get_id(){
+    return texId;
+}
